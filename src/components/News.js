@@ -13,12 +13,12 @@ export default function News(props) {
   const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
-
+// Not a good habit to expose url or backend calls use .env files
   useEffect(() => {
     document.title = `${capitalizeFirstLetter(props.category)} - NewsApp`;
         const fetchData = async () => {
             setLoading(true);
-            let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=dbe57b028aeb41e285a226a94865f7a7&page=1&pageSize=${props.pageSize}`;
+            let url = `https://newsappbackendproxy.onrender.com/api/news?country=${props.country}&category=${props.category}&page=1&pageSize=${props.pageSize}`;
             let data = await fetch(url);
             let parsedData = await data.json();
             console.log(parsedData);
@@ -41,7 +41,7 @@ export default function News(props) {
 
     const handlePrevClick = async () => {
         console.log("Previous");
-        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=dbe57b028aeb41e285a226a94865f7a7&page=${page - 1}&pageSize=${props.pageSize}`;
+        let url = `https://newsappbackendproxy.onrender.com/api/news?country=${props.country}&category=${props.category}&page=${page - 1}&pageSize=${props.pageSize}`;
         setLoading(true);
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -56,7 +56,7 @@ export default function News(props) {
         if (page + 1 > Math.ceil(totalResults / props.pageSize)) {
              alert("No more data available.");
         } else {
-            let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=dbe57b028aeb41e285a226a94865f7a7&page=${page + 1}&pageSize=${props.pageSize}`;
+            let url = `https://newsappbackendproxy.onrender.com/api/news?country=${props.country}&category=${props.category}&page=${page + 1}&pageSize=${props.pageSize}`;
             setLoading(true);
             let data = await fetch(url);
             let parsedData = await data.json();
@@ -93,6 +93,7 @@ export default function News(props) {
     </>
   )
 }
+
 //Limit off Set
 // import React, { useEffect, useState } from 'react'
 // import NewsItem from './NewsItem'
